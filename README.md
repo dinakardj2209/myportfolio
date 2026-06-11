@@ -1,6 +1,6 @@
 # DINAKAR D J — Professional Portfolio
 
-A MERN stack portfolio built for software developer job search, targeting top MNC-level opportunities. Clean, professional design with system-based dark/light theme, categorized skills, and a contact/feedback form.
+A MERN stack portfolio built for software developer job search. And showing my skills and knowledge I learnt. Clean, professional design with system-based dark/light theme, categorized skills, and a contact/feedback form.
 
 ## Tech Stack
 
@@ -105,7 +105,7 @@ portfolio/
 │   └── src/
 │       ├── components/     # UI sections
 │       └── data/
-│           └── profile.js  # ← YOUR CONTENT PIPELINE
+│           └── profile.js  
 ├── server/                 # Express API
 │   ├── models/             # MongoDB schemas
 │   └── routes/             # API routes
