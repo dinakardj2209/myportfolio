@@ -2,21 +2,27 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import contactRoutes from './routes/contact.js';
-import { isEmailConfigured } from './utils/sendEmail.js';
+import { getEmailProvider, isEmailConfigured } from './utils/sendEmail.js';
 
 dotenv.config();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS blocked for origin: ${origin}`));
+    }
+  },
   credentials: true,
 }));
 app.use(express.json());
@@ -24,17 +30,23 @@ app.use(express.json());
 app.use('/api/contact', contactRoutes);
 
 app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok', message: 'Portfolio API is running' });
-});
-
-app.get('/', (_req, res) => {
   res.json({
+    status: 'ok',
     message: 'Portfolio API is running',
+    email: {
+      configured: isEmailConfigured(),
+      provider: getEmailProvider(),
+    },
+    mongo: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
   });
 });
 
+app.get('/', (_req, res) => {
+  res.json({ message: 'Portfolio API is running' });
+});
+
 const connectDB = async () => {
-  const uri = process.env.MONGODB_URI;
+  const uri = process.env.MONGODB_URI?.trim();
   if (!uri) {
     console.warn('MONGODB_URI not set — contact form will not persist messages.');
     return;
@@ -51,9 +63,11 @@ connectDB();
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log(`CORS origins: ${allowedOrigins.join(', ')}`);
+
   if (isEmailConfigured()) {
-    console.log('Email notifications enabled');
+    console.log(`Email notifications enabled (${getEmailProvider()})`);
   } else {
-    console.warn('Email not configured — set SMTP_* and RECIPIENT_EMAIL in server/.env');
+    console.warn('Email not configured — set RESEND_API_KEY or SMTP_* in environment variables');
   }
 });

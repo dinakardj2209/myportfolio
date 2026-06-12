@@ -171,28 +171,57 @@ Best for MERN as one app.
 
 Contact form submissions are **emailed to you** and also stored in the `contacts` collection (if MongoDB is connected).
 
-### Email notifications (Gmail)
+### Email notifications
 
-The contact form sends an email to `RECIPIENT_EMAIL` on every submission. Gmail requires an **App Password** (not your normal login password).
+The contact form sends an email to `RECIPIENT_EMAIL` on every submission.
 
-1. Enable 2-Step Verification on your Google account: [myaccount.google.com/security](https://myaccount.google.com/security)
-2. Create an App Password: Google Account → Security → 2-Step Verification → App passwords → Mail → Generate
+#### Option A — Resend (recommended for Render / production)
+
+Gmail SMTP is often **blocked on cloud hosts** like Render. Use [Resend](https://resend.com) instead (free tier: 100 emails/day):
+
+1. Sign up at [resend.com](https://resend.com)
+2. Create an API key
+3. Add to **Render → Environment**:
+
+```env
+RESEND_API_KEY=re_your_api_key
+RECIPIENT_EMAIL=dinakardj2209@gmail.com
+RESEND_FROM=Portfolio Contact <onboarding@resend.dev>
+CLIENT_URL=https://your-frontend-url.com
+MONGODB_URI=your_mongodb_uri
+```
+
+4. Redeploy Render service
+5. Verify: open `https://your-api.onrender.com/api/health` — should show `"provider": "resend"`
+
+#### Option B — Gmail SMTP (local dev)
+
+1. Enable 2-Step Verification on your Google account
+2. Create an App Password (16 characters, **no spaces** in `SMTP_PASS`)
 3. Add to `server/.env`:
 
 ```env
 RECIPIENT_EMAIL=dinakardj2209@gmail.com
-EMAIL_FROM_NAME=Portfolio Contact
 SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_SECURE=false
 SMTP_USER=dinakardj2209@gmail.com
-SMTP_PASS=paste_your_16_char_app_password
+SMTP_PASS=your_16_char_app_password
 ```
 
-4. Restart the server — you should see `Email notifications enabled` in the terminal
-5. Submit a test message on the Contact form and check your inbox
+### Render environment variables checklist
 
-When you reply to the notification email, it goes directly to the person who contacted you (`Reply-To` is set automatically).
+In **Render Dashboard → your service → Environment**, set ALL of these:
+
+| Variable | Example |
+|----------|---------|
+| `MONGODB_URI` | `mongodb+srv://...` |
+| `RECIPIENT_EMAIL` | `dinakardj2209@gmail.com` |
+| `RESEND_API_KEY` | `re_...` (recommended) |
+| `CLIENT_URL` | `https://your-portfolio.vercel.app` |
+| `NODE_ENV` | `production` |
+
+`CLIENT_URL` must match your **exact** frontend URL (no trailing slash). Multiple origins: comma-separated.
+
+When you reply to the notification email, it goes directly to the person who contacted you.
 
 ---
 
