@@ -31,11 +31,11 @@ export const navItems = [
   { id: 'hero', label: 'Home' },
   { id: 'career', label: 'Career Path' },
   { id: 'experience', label: 'Experience' },
-  { id: 'achievements', label: 'Achievements' },
-  { id: 'certificates', label: 'Certificates' },
+  { id: 'projects', label: 'Projects' },
   { id: 'education', label: 'Education' },
   { id: 'skills', label: 'Skills' },
-  { id: 'projects', label: 'Projects' },
+  { id: 'certificates', label: 'Certificates' },
+  { id: 'achievements', label: 'Achievements' },
   { id: 'contact', label: 'Contact' },
 ];
 

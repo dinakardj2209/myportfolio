@@ -38,12 +38,12 @@ export default function Footer() {
                 <span>{profile.email}</span>
               </a>
             )}
-            {profile.phone && (
+            {/* {profile.phone && (
               <a href={`tel:${profile.phone.replace(/\s/g, '')}`} className="footer__contact-item">
                 <HiOutlinePhone />
                 <span>{profile.phone}</span>
               </a>
-            )}
+            )} */}
             {profile.location && (
               <span className="footer__contact-item">
                 <HiOutlineLocationMarker />

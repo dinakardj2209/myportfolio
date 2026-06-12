@@ -18,11 +18,11 @@ export default function App() {
         <Hero />
         <CareerPath />
         <Experience />
-        <Achievements />
-        <Certificates />
+        <Projects />
         <Education />
         <Skills />
-        <Projects />
+        <Certificates />
+        <Achievements />
         <Contact />
       </main>
       <Footer />
