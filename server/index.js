@@ -26,13 +26,11 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', message: 'Portfolio API is running' });
 });
 
-if (process.env.NODE_ENV === 'production') {
-  const clientDist = path.join(__dirname, '../client/dist');
-  app.use(express.static(clientDist));
-  app.get('*', (_req, res) => {
-    res.sendFile(path.join(clientDist, 'index.html'));
+app.get('/', (_req, res) => {
+  res.json({
+    message: 'Portfolio API is running',
   });
-}
+});
 
 const connectDB = async () => {
   const uri = process.env.MONGODB_URI;
