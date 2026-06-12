@@ -186,7 +186,7 @@ export const skillCategories = [
   {
     category: 'Backend & Database',
     color: 'green',
-    skills: ['Node.js', 'Express.js', 'MongoDB', 'REST API'],
+    skills: ['Node.js', 'Express.js', 'NoSQL', 'PostgreSQL', 'REST API'],
   },
   {
     category: 'Cloud & Enterprise',
@@ -196,7 +196,7 @@ export const skillCategories = [
   {
     category: 'Tools & Practices',
     color: 'red',
-    skills: ['Git', 'GitHub', 'CI/CD', 'DSA', 'Agile', 'Postman', 'Google OAuth', 'Docker'],
+    skills: ['Git', 'GitHub', 'CI/CD', 'DSA', 'MongoDB', 'Agile', 'Postman', 'Google OAuth', 'Docker'],
   },
 ];
 
@@ -205,10 +205,18 @@ export const projects = [
     title: 'Appraisal Performance and Payslip Management',
     description:
       'Role-based Performance Appraisal & Payroll system with secure authentication, digital payslip generation, approval workflows, and batch payroll processing.',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Puppeteer'],
-    liveUrl: '',
+    technologies: ['React', 'Node.js', 'MongoDB', 'Puppeteer', 'Express.js', 'NoSQL'],
+    liveUrl: 'https://appraisal.sumerudigital.com/',
     githubUrl: '',
-    featured: true,
+    featured: false,
+  },
+  {
+    title: 'Smart bookmark apk',
+    description: '',
+    technologies: ['TypeScript','Next.js','Google OAuth', 'Supabase', 'PostgreSQL'],
+    liveUrl: 'https://smart-bookmark-app-eta-ruby.vercel.app',
+    githubUrl: 'https://github.com/dinakardj2209/smart-bookmark-app',
+    featured: false,
   },
   {
     title: 'Malaria Detection — Deep Learning',
@@ -217,21 +225,13 @@ export const projects = [
     technologies: ['Python', 'Deep Learning', 'React'],
     liveUrl: '',
     githubUrl: '',
-    featured: true,
+    featured: false,
   },
   {
     title: 'Cab Booking System',
     description:
       'User-friendly platform for customers and drivers to manage trips with secure personal data handling and CRUD operations.',
     technologies: ['Python', 'SQL'],
-    liveUrl: '',
-    githubUrl: '',
-    featured: false,
-  },
-  {
-    title: 'Smart bookmark apk',
-    description: '',
-    technologies: ['JavaScript','Next.js','Google OAuth'],
     liveUrl: '',
     githubUrl: '',
     featured: false,
