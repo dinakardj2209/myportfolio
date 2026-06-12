@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import contactRoutes from './routes/contact.js';
+import { isEmailConfigured } from './utils/sendEmail.js';
 
 dotenv.config();
 
@@ -50,4 +51,9 @@ connectDB();
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  if (isEmailConfigured()) {
+    console.log('Email notifications enabled');
+  } else {
+    console.warn('Email not configured — set SMTP_* and RECIPIENT_EMAIL in server/.env');
+  }
 });

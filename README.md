@@ -169,7 +169,30 @@ Best for MERN as one app.
 3. Network Access → allow `0.0.0.0/0` (or your host IP)
 4. Connect → copy connection string → paste in `MONGODB_URI`
 
-Contact form submissions are stored in the `contacts` collection.
+Contact form submissions are **emailed to you** and also stored in the `contacts` collection (if MongoDB is connected).
+
+### Email notifications (Gmail)
+
+The contact form sends an email to `RECIPIENT_EMAIL` on every submission. Gmail requires an **App Password** (not your normal login password).
+
+1. Enable 2-Step Verification on your Google account: [myaccount.google.com/security](https://myaccount.google.com/security)
+2. Create an App Password: Google Account → Security → 2-Step Verification → App passwords → Mail → Generate
+3. Add to `server/.env`:
+
+```env
+RECIPIENT_EMAIL=dinakardj2209@gmail.com
+EMAIL_FROM_NAME=Portfolio Contact
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=dinakardj2209@gmail.com
+SMTP_PASS=paste_your_16_char_app_password
+```
+
+4. Restart the server — you should see `Email notifications enabled` in the terminal
+5. Submit a test message on the Contact form and check your inbox
+
+When you reply to the notification email, it goes directly to the person who contacted you (`Reply-To` is set automatically).
 
 ---
 
