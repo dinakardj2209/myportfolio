@@ -148,6 +148,9 @@ async function sendViaSmtp({ name, email, subject, message }) {
   const fromAddress = trimEnv('SMTP_USER');
   const transporter = createSmtpTransporter();
 
+  await transporter.verify();
+  console.log('SMTP verified successfully');
+
   await transporter.sendMail({
     from: `"${fromName}" <${fromAddress}>`,
     to: recipient,
