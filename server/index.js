@@ -15,16 +15,10 @@ const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
   .map((origin) => origin.trim())
   .filter(Boolean);
 
-app.use(cors({
-  origin(origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error(`CORS blocked for origin: ${origin}`));
-    }
-  },
-  credentials: true,
-}));
+  app.use(cors({
+    origin: true,
+    credentials: true,
+  }));
 app.use(express.json());
 
 app.use('/api/contact', contactRoutes);
